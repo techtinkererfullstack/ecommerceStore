@@ -39,14 +39,18 @@ class ProductAdapter(private val list: List<ProductResponse>) :
         holder.binding.productPrice.text = "$" + product.price
         holder.binding.productCategory.text = product.category.name
         holder.binding.root.setOnClickListener {
+            val context = holder.itemView.context
 
+            val intent = Intent(context, ProductDetails::class.java)
 
-
-
-            val intent = Intent(holder.itemView.context, ProductDetails::class.java)
             intent.putExtra("name", product.title)
+            intent.putExtra("image", product.images[0])
+            intent.putExtra("price", product.price)
+            intent.putExtra("category", product.category.name)
+            intent.putExtra("description", product.description)
             intent.putExtra("id", product.id)
-            holder.itemView.context.startActivity(intent)
+           context.startActivity(intent)
+
         }
 
         val imageUrl = product.images.firstOrNull()
